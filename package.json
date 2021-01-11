@@ -1,0 +1,21 @@
+{
+  "name": "wan-shi-tong",
+  "version": "1.0.0",
+  "description": "Watches a directory and creates a good way to archive things",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Benjamin Cooper <bencooper222@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chokidar": "^3.5.0",
+    "date-fns": "^2.16.1",
+    "fix-time": "^2.1.0",
+    "googleapis": "^67.0.0",
+    "inquirer": "^7.3.3"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
+  }
+}
