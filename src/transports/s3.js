@@ -23,6 +23,7 @@ const uploadImage = async (localPath, s3Path, metadata = {}) => {
 
   // catch error in caller
   await s3.send(new PutObjectCommand(uploadParams));
+  return `https://s3.${REGION}.amazonaws.com/${process.env.S3_BUCKET}/${s3Path}`;
 };
 
 module.exports = { uploadImage };
