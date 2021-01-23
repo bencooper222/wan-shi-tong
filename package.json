@@ -4,7 +4,8 @@
   "description": "Watches a directory and creates a good way to archive things",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cli": "node src/cli.js --"
   },
   "author": "Benjamin Cooper <bencooper222@gmail.com>",
   "license": "MIT",
