@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const { cleverParseDate } = require('./util/date');
+const { cleverParseDate } = require('./util');
 const { basename } = require('path');
 
 const questions = path => [
@@ -28,7 +28,7 @@ const questions = path => [
 
 const collect = async path => {
   const answers = await inquirer.prompt(questions(path));
-  answers.date = cleverParseDate(answers.date); // should be the default behavior but inquirer is dumb
+  answers.date = cleverParseDate(answers.date).date.toUTCString(); // should be the default behavior but inquirer is dumb
   return { answers, path };
 };
 

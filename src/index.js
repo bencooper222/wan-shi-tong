@@ -20,10 +20,10 @@ const processImage = async (path, additionalMetadata) => {
 };
 
 const main = async () => {
-  const grade = process.argv[2] ?? 'unspecified';
+  const grade = process.argv[2] ?? -1;
   if (!isNumber(grade)) throw new Error('grade must be number');
 
-  watch(DIRECTORY_TO_WATCH, path => void processImage(path, { grade }));
+  watch(DIRECTORY_TO_WATCH, path => void processImage(path, { grade: grade.toString() }));
 };
 
 main().catch(err => {

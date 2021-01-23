@@ -10,7 +10,7 @@ if (!fs.existsSync(dir)) {
 const genFileName = () =>
   `${new Array(5)
     .fill(0)
-    .map(el => ALPHABET[Math.floor(Math.random() * ALPHABET.length)])
+    .map(_ => ALPHABET[Math.floor(Math.random() * ALPHABET.length)])
     .join('')}.jpeg`;
 
 const name = genFileName();
