@@ -119,3 +119,5 @@ dist
 test/
 
 .DS_Store
+
+store/

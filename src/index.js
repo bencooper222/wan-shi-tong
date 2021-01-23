@@ -4,7 +4,7 @@ const { watch } = require('./watcher');
 const { collect } = require('./collectMetadata');
 const { uploadImage } = require('./transports/s3');
 const { isNumber } = require('./util');
-const DIRECTORY_TO_WATCH = './';
+const DIRECTORY_TO_WATCH = './store';
 
 const processImage = async (path, additionalMetadata) => {
   const { answers } = await collect(path);
