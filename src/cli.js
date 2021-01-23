@@ -1,4 +1,4 @@
-const main = require('./index');
+const { main } = require('./index');
 
 const options = require('yargs')
   .option('grade', { type: 'number', describe: 'What grade is this from?' })
