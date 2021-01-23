@@ -6,12 +6,12 @@ const { uploadImage } = require('./transports/s3');
 const { isNumber } = require('./util');
 const DIRECTORY_TO_WATCH = './store';
 
-const processImage = async (path, additionalMetadata) => {
+const processImage = async (path, pathPrefix, additionalMetadata = {}) => {
   const { answers } = await collect(path);
   const { title, ...rest } = answers;
 
   try {
-    await uploadImage(path, `${title}.jpeg`, { ...rest, ...additionalMetadata });
+    await uploadImage(path, `${pathPrefix}/${title}.jpeg`, { ...rest, ...additionalMetadata });
     console.log(`Uploaded ${title}.jpeg`);
   } catch (err) {
     console.error('Failed upload', path, err);
@@ -19,14 +19,8 @@ const processImage = async (path, additionalMetadata) => {
   }
 };
 
-const main = async () => {
-  const grade = process.argv[2] ?? -1;
-  if (!isNumber(grade)) throw new Error('grade must be number');
-
-  watch(DIRECTORY_TO_WATCH, path => void processImage(path, { grade: grade.toString() }));
+const main = async pathPrefix => {
+  watch(DIRECTORY_TO_WATCH, path => void processImage(path, pathPrefix));
 };
 
-main().catch(err => {
-  console.error(err);
-  process.exit(1);
-});
+module.exports = { main };
