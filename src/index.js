@@ -3,8 +3,7 @@ require('dotenv').config();
 const { watch } = require('./watcher');
 const { collect } = require('./collectMetadata');
 const { uploadImage } = require('./transports/s3');
-const { add } = require('date-fns');
-
+const { isNumber } = require('./util');
 const DIRECTORY_TO_WATCH = './';
 
 const processImage = async (path, additionalMetadata) => {
@@ -22,6 +21,8 @@ const processImage = async (path, additionalMetadata) => {
 
 const main = async () => {
   const grade = process.argv[2] ?? 'unspecified';
+  if (!isNumber(grade)) throw new Error('grade must be number');
+
   watch(DIRECTORY_TO_WATCH, path => void processImage(path, { grade }));
 };
 
