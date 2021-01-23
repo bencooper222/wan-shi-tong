@@ -15,7 +15,7 @@ const questions = path => [
     type: 'input',
     name: 'date',
     message: 'Approximate date?',
-    validate: (val, answers, flags) => {
+    validate: val => {
       try {
         cleverParseDate(val);
         return true;
