@@ -3,15 +3,18 @@ require('dotenv').config();
 const { watch } = require('./watcher');
 const { collect } = require('./collectMetadata');
 const { uploadImage } = require('./transports/s3');
+const { basename } = require('path');
 const DIRECTORY_TO_WATCH = './store';
 
 const processImage = async (path, pathPrefix, additionalMetadata = {}) => {
   const { answers } = await collect(path);
-  const { title, ...rest } = answers;
 
   try {
-    await uploadImage(path, `${pathPrefix}/${title}.jpeg`, { ...rest, ...additionalMetadata });
-    console.log(`Uploaded ${title}.jpeg`);
+    await uploadImage(path, `${pathPrefix}/${basename(path)}`, {
+      ...answers,
+      ...additionalMetadata,
+    });
+    console.log(`Uploaded ${basename(path)}`);
   } catch (err) {
     console.error('Failed upload', path, err);
     process.exit(1);
