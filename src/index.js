@@ -32,7 +32,6 @@ const mainWatch = async pathPrefix => {
 const mainIterateDirectory = async pathPrefix => {
   const files = await readdirAsync(DIRECTORY_WITH_FILES);
   for (const file of files) {
-    console.log(file);
     await processImage(resolve(`${DIRECTORY_WITH_FILES}/${file}`), pathPrefix);
   }
 };
