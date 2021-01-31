@@ -3,8 +3,12 @@ require('dotenv').config();
 const { watch } = require('./watcher');
 const { collect } = require('./collectMetadata');
 const { uploadImage } = require('./transports/s3');
-const { basename } = require('path');
-const DIRECTORY_TO_WATCH = './store';
+const { basename, resolve } = require('path');
+const { readdir } = require('fs');
+const { promisify } = require('util');
+const readdirAsync = promisify(readdir);
+
+const DIRECTORY_WITH_FILES = './test';
 
 const processImage = async (path, pathPrefix, additionalMetadata = {}) => {
   const { answers } = await collect(path);
@@ -21,8 +25,21 @@ const processImage = async (path, pathPrefix, additionalMetadata = {}) => {
   }
 };
 
+const mainWatch = async pathPrefix => {
+  watch(DIRECTORY_WITH_FILES, path => void processImage(path, pathPrefix));
+};
+
+const mainIterateDirectory = async pathPrefix => {
+  const files = await readdirAsync(DIRECTORY_WITH_FILES);
+  for (const file of files) {
+    console.log(file);
+    await processImage(resolve(`${DIRECTORY_WITH_FILES}/${file}`), pathPrefix);
+  }
+};
+
 const main = async pathPrefix => {
-  watch(DIRECTORY_TO_WATCH, path => void processImage(path, pathPrefix));
+  // mainWatch(pathPrefix);
+  mainIterateDirectory(pathPrefix);
 };
 
 module.exports = { main };
